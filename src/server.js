@@ -17,28 +17,57 @@
 
 
 // Aula 3 do dia 08/04/2026
-const express = require('express')
-const app = express()
-const port = 3000
+//const express = require('express')
+//const app = express()
+//const port = 3000
 
-app.get('/', (req, res) => {
-  res.send('Quero ir pra casa')
-})
+//app.get('/', (req, res) => {
+  //res.send('Quero ir pra casa')
+//})
 
 
 
-app.get('/soma', (req, res) => {
+//app.get('/soma', (req, res) => {
 
-   const num1 =10
-   const num2 =20
+  // const num1 =10
+  // const num2 =20
     
-  res.send(`a soma num1 mais num2 e ${num1 + num2}`);
-})
+  //res.send(`a soma num1 mais num2 e ${num1 + num2}`);
+//})
 
 
 
+//app.listen(port, () => {
+  //console.log(`Example app listening on port ${port}`)
+//})
+
+ //Aula 4 do dia 09/04/2026
+
+const express = require('express');
+const app = express();
+
+// Middleware para interpretar JSON
+app.use(express.json());
+
+let tarefas = [
+  { id: 1, descricao: "Estudar Node.js", concluida: true },
+  { id: 2, descricao: "Criar API com Express", concluida: false }, // corrigido "cncluida"
+];
+
+// Rota inicial
+app.get('/', (req, res) => {
+  res.send("Bem-vindo à API de Tarefas!");
+});
+
+// Rota para listar tarefas
+app.get("/tarefas", (req, res) => {
+  res.json(tarefas);
+});
+
+// Definição da porta
+const port = 3000;
+
+// Inicialização do servidor
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
-
-
+  console.log(`Servidor rodando na porta ${port}`);
+});
