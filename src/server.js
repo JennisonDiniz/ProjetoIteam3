@@ -71,3 +71,14 @@ const port = 3000;
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
+
+// POST /tarefas - Cria uma nova tarefa
+app.post("/tarefas", (req, res) => {
+  const novaTarefa = {
+    id: tarefas.length + 1, // Simples geração de ID
+    descricao: req.body.descricao,
+    concluida: false,
+  };
+  tarefas.push(novaTarefa);
+  res.status(201).json(novaTarefa); // 201 significa "Created"
+});
