@@ -1,45 +1,46 @@
-// Aula 2 do dia 07/04/2026
+/*Aula 2 do dia 07/04/2026
 
-//console.log("Hello World!")
+console.log("Hello World!")
 
-//const {somar} = require ('./processador');
+const {somar} = require ('./processador');
 
-//const resultado = somar (6,8)
+const resultado = somar (6,8)
 
-//const{formatarTexto} = require ('./processador')
+const{formatarTexto} = require ('./processador')
 
-//const{enviroment} = require ('./processador')
+const{enviroment} = require ('./processador')
 
-//console.log(resultado)
+console.log(resultado)
 
-//console.log (formatarTexto("Faz o L"));
-//console.log(enviroment.production);
-
-
-// Aula 3 do dia 08/04/2026
-//const express = require('express')
-//const app = express()
-//const port = 3000
-
-//app.get('/', (req, res) => {
-  //res.send('Quero ir pra casa')
-//})
+console.log (formatarTexto("Faz o L"));
+console.log(enviroment.production);
 
 
+Aula 3 do dia 08/04/2026
+const express = require('express')
+const app = express()
+const port = 3000
 
-//app.get('/soma', (req, res) => {
 
-  // const num1 =10
-  // const num2 =20
+  app.get('/', (req, res) => {
+  res.send('Quero ir pra casa')
+})
+
+
+
+app.get('/soma', (req, res) => {
+
+   const num1 =10
+   const num2 =20
     
-  //res.send(`a soma num1 mais num2 e ${num1 + num2}`);
-//})
+  res.send(`a soma num1 mais num2 e ${num1 + num2}`);
+})
 
 
 
-//app.listen(port, () => {
-  //console.log(`Example app listening on port ${port}`)
-//})
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})*/
 
  //Aula 4 do dia 09/04/2026
 
@@ -82,3 +83,46 @@ app.post("/tarefas", (req, res) => {
   tarefas.push(novaTarefa);
   res.status(201).json(novaTarefa); // 201 significa "Created"
 });
+
+const novaTarefa = {
+    id: tasks.length > 0 ? Math.max(...tasks.map((task) => task.id)) + 1 : 1,
+    titulo: req.body.titulo,
+    status: req.body.status || "pendente",
+  };
+
+  const express = require("express");
+const app = express();
+app.use(express.json());
+
+// Versao sem persistencia: ao reiniciar o servidor, os dados voltam ao inicial.
+const tasks = [{ id: 1, titulo: "Estudar Express", status: "pendente" }];
+
+app.get("/", (req, res) => {
+  res.send("API de tarefas (sem persistencia) funcionando");
+});
+
+app.get("/tasks", (req, res) => {
+  res.json(tasks);
+});
+
+
+app.post("/tasks", (req, res) => {
+  if (!req.body.titulo) {
+    return res.status(400).json({ erro: "O campo título é obrigatório." });
+  }
+
+  const novaTarefa = {
+    id: tasks.length > 0 ? Math.max(...tasks.map((task) => task.id)) + 1 : 1,
+    titulo: req.body.titulo,
+    status: req.body.status || "pendente",
+  };
+
+  tasks.push(novaTarefa);
+  return res.status(201).json(novaTarefa);
+});
+
+
+
+app.listen(3001, () =>
+  console.log("Servidor sem persistencia rodando na porta 3001"),
+);
